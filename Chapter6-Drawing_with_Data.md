@@ -24,7 +24,7 @@ d3.select("body").selectAll("div")
     .attr("class", "bar");”
 ```
 
-![柱状图](https://wusiquan.github.io/studyd3//blob/master/images/chap6-1.png)
+![柱状图](https://github.com/wusiquan/studyd3/blob/master/images/chap6-1.png)
 
 
 可以看见5根竖div，每个都是由dataset里的每个点生成。但它们之家没有空隙
