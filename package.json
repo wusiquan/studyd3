@@ -1,0 +1,15 @@
+{
+  "name": "studyd3",
+  "version": "0.0.1",
+  "description": "study d3.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.23.7",
+    "gulp": "^3.9.1"
+  }
+}
