@@ -24,12 +24,35 @@ d3.select("body").selectAll("div")
     .attr("class", "bar");”
 ```
 
-![柱状图](https://github.com/wusiquan/studyd3/blob/master/images/chap6-1.png)
+![柱状图1](https://github.com/wusiquan/studyd3/blob/master/images/chap6-1.png)
 
 
-可以看见5根竖div，每个都是由dataset里的每个点生成。但它们之家没有空隙
-
-
+可以看见5根竖div，每个都是由dataset里的每个点生成。但它们之间没有空隙
 
 
 
+`data()的力量`
+
+可以不限于5个数据点
+
+`var dataset = [ 25, 7, 5, 26, 11, 8, 25 .... ]`
+
+![柱状图2](http://github.com/wusiquan/studyd3/blob/master/images/chap6-2.png)
+
+D3是如何按需extend我们的chart的呢?
+
+```javascript
+d3.select('body').selectAll('div')
+  .data(dataset)  // <-- The answer is here!
+  .enter()
+  .append('div')
+  .attr('class', 'bar')
+  .style('height', function(d) {
+    var barHeight = d * 5
+    return barHeight + 'px'
+  })
+```
+
+`data()`的力量 — 足够机智地循环你抛给它的任何 dataset 的full length, 并执行链下面的每个方法，同时修改每个方法的执行环境，所以`d`总是指的是循环中当前数据点的数据
+
+记住，是**data**驱动试图 — 而不是其他途径
