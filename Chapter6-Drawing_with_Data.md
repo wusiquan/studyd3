@@ -29,9 +29,7 @@ d3.select("body").selectAll("div")
 
 可以看见5根竖div，每个都是由dataset里的每个点生成。但它们之间没有空隙
 
-
-
-`data()的力量`
+#### data()的力量
 
 可以不限于5个数据点
 
