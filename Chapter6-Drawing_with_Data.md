@@ -24,7 +24,7 @@ d3.select("body").selectAll("div")
     .attr("class", "bar");”
 ```
 
-![柱状图1](https://github.com/wusiquan/studyd3/blob/master/images/chap6-1.png)
+![柱状图1](//github.com/wusiquan/studyd3/blob/master/images/chap6-1.png)
 
 
 可以看见5根竖div，每个都是由dataset里的每个点生成。但它们之间没有空隙
@@ -37,7 +37,7 @@ d3.select("body").selectAll("div")
 
 `var dataset = [ 25, 7, 5, 26, 11, 8, 25 .... ]`
 
-![柱状图2](http://github.com/wusiquan/studyd3/blob/master/images/chap6-2.png)
+![柱状图2](//github.com/wusiquan/studyd3/blob/master/images/chap6-2.png)
 
 D3是如何按需extend我们的chart的呢?
 
