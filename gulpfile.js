@@ -1,4 +1,4 @@
-wconst path = require('path')
+const path = require('path')
 const gulp = require('gulp')
 const browserSync = require('browser-sync').create()
 
