@@ -39,7 +39,7 @@ axis的方法与scale方法相似，但不返回值，而是创建坐标轴元�
        .call(d3.axisBottom())
        .scale(xScale)
 
-[效果图](https://wusiquan.github.io/studyd3/examples/chapter8-1.html)
+[效果图](https://wusiquan.github.io/studyd3/chapter8-1.html)
 
 ## 坐标轴定位
 
@@ -64,7 +64,7 @@ svg.append('g')
 }
 ```
 
-[效果图](https://wusiquan.github.io/studyd3/examples/chapter8-2.html)
+[效果图](https://wusiquan.github.io/studyd3/chapter8-2.html)
 
 ## 检查坐标轴标记
 
