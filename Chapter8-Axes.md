@@ -17,7 +17,7 @@ axis的方法与scale方法相似，但不返回值，而是创建坐标轴元�
 
 `var xAxis = d3.axisBottom();`
 
-每个坐标轴，最低也需要被告知使用的比例  
+每个坐标轴，最低也需要被告知使用的比例
 
 `xAxis.scale(xScale);`
 
@@ -42,3 +42,31 @@ axis的方法与scale方法相似，但不返回值，而是创建坐标轴元�
 [效果图](https://wusiquan.github.io/studyd3/examples/chapter8-1.html)
 
 ## 坐标轴定位
+
+我们来让坐标轴坐标轴出现在图表的底部，加一行即可
+
+```javascript
+svg.append('g')
+   .attr('class', 'axis')
+   .attr('transform', 'translate(0,' + (h - padding) + ')')
+   .call(xAxis)
+```
+
+*g* 元素在DOM看起来就像这样了
+
+`<g class="axis" transform="translate(0, 280)">`
+
+当然还可以添加些css
+
+```css
+.axis text {
+  fill: olive;
+}
+```
+
+[效果图](https://wusiquan.github.io/studyd3/examples/chapter8-2.html)
+
+## 检查坐标轴标记
+
+
+

@@ -1,3 +1,4 @@
+// https://github.com/alignedleft/d3-book
 const path = require('path')
 const gulp = require('gulp')
 const browserSync = require('browser-sync').create()
