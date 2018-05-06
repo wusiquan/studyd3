@@ -66,7 +66,53 @@ svg.append('g')
 
 [效果图](https://wusiquan.github.io/studyd3/chapter8-2.html)
 
-## 检查坐标轴标记
+## 检查坐标轴刻度
+
+直接上码
+
+```javascript
+var xAxis = d3.axisBottom()
+			  .sacle(xScale)
+			  .ticks(5)		// set rough number of ticks
+```
+
+[效果图](https://wusiquan.github.io/studyd3/chapter8-3.html)
+
+你将发现，尽管我们指定了5个刻度，但出现了7个。
+
+原因: **d3默认的tick-selection logic**
+
+因为：
+
+d3发如果分成5个，0, 150, 300, 450, 600 不够好看
+
+所以d3认为`tick()`中的值仅仅是建议值，它将决定最整洁，易读的值。（此例，间距100）这将更易于扩展，如输入数据的范围变大或变小时, d3依然可以保证刻度标签易读。
+
+
+
+当然你可以"指定"，这将覆盖*d3默认的tick-selection logic*
+
+```javascript
+var xAxis = d3.axisBottom()
+              .scale(xScale)
+              .tickValues([0, 100, 250, 600]);
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
