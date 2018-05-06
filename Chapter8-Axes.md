@@ -98,7 +98,7 @@ var xAxis = d3.axisBottom()
               .tickValues([0, 100, 250, 600]);
 ```
 
-
+![自定义散点图](https://github.com/wusiquan/studyd3/blob/master/images/chap8-1.png)
 
 
 
