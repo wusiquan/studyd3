@@ -78,8 +78,8 @@ svg.append('g')
 
 ```javascript
 var xAxis = d3.axisBottom()
-			  .sacle(xScale)
-			  .ticks(5)		// set rough number of ticks
+              .sacle(xScale)
+              .ticks(5)     // set rough number of ticks
 ```
 
 [效果图](https://wusiquan.github.io/studyd3/chapter8-3.html)
@@ -116,8 +116,8 @@ var xAxis = d3.axisBottom()
 
 ```javascript
 var yAxis = d3.axisLeft()
-			  .scale(yScale)
-			  .ticks(5);
+              .scale(yScale)
+              .ticks(5);
 ```
 
 以及代码近底部，
