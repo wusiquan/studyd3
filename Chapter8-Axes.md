@@ -1,8 +1,10 @@
-有了第7章已有散点图的基础上，我们来添加横坐标和纵坐标
+有了第7章已有[散点图](https://wusiquan.github.io/studyd3/chapter7-2.html)的基础上，我们来添加横坐标和纵坐标
 
 ## 坐标介绍
 
 axis的方法与scale方法相似，但不返回值，而是创建坐标轴元素
+
+
 
 ## 创建坐标轴
 
@@ -41,6 +43,8 @@ axis的方法与scale方法相似，但不返回值，而是创建坐标轴元�
 
 [效果图](https://wusiquan.github.io/studyd3/chapter8-1.html)
 
+
+
 ## 坐标轴定位
 
 我们来让坐标轴坐标轴出现在图表的底部，加一行即可
@@ -65,6 +69,8 @@ svg.append('g')
 ```
 
 [效果图](https://wusiquan.github.io/studyd3/chapter8-2.html)
+
+
 
 ## 检查坐标轴刻度
 
@@ -102,17 +108,72 @@ var xAxis = d3.axisBottom()
 
 
 
+## Y坐标轴, 有何不可?
+
+与已写的`xAxis`类似
+
+在代码近顶部
+
+```javascript
+var yAxis = d3.axisLeft()
+			  .scale(yScale)
+			  .ticks(5);
+```
+
+以及代码近底部，
+
+顺便给y轴一些左侧空间
+
+```javascript
+var padding = 30
+svg.append('g')
+   .attr('class', 'axis')
+   .attr('transform', 'translate(' + padding + ',0)')
+   .call(yAxis);
+```
+
+[效果图](https://wusiquan.github.io/studyd3/chapter8-4.html)
 
 
 
+## 最后提及
+
+证明给你看新坐标轴是动态的及可扩展的，我将从静态的数据改为随机数据
+
+```javascript
+// Dynamic, random dataset
+var dataset = []
+var numDataPoints = 50
+var xRange = Math.random() * 1000
+var yRange = Math.random() * 1000
+for (var i = 0; i < numDataPoints; i++) {
+  var newNumber1 = Math.floor(Math.random() * xRange)
+  var newNumber2 = Math.floor(Math.random() * yRange)
+  dataset.push([newNumber1, newNumber2])
+}
+```
+
+[效果图](https://wusiquan.github.io/studyd3/chapter8-5.html)
+
+每次重新刷新页面看看。可以看到坐标轴怎样去适应新的数据的范围，坐标刻度及标签值的被合适地选择
 
 
 
+## 格式化坐标轴刻度标签
+
+使用tickFormat()，首先定义一个新的*数字格式化*函数。例如，一个数字格式化函数将值格式化作保留一个小数点的百分数，即你输入0.23, 返回*"23.0%"*
+
+```javascript
+var formatAsPercentage = d3.format('.1%');
+
+// ...
+
+xAxis.tickFormat(formatAsPercentage)
+```
 
 
 
-
-
+## 基于时间的坐标轴
 
 
 
