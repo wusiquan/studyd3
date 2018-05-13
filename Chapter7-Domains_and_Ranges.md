@@ -1,4 +1,4 @@
-### Domains and Ranges
+## Domains and Ranges
 
 比例的*输入域*(input domain)是可能输入数据的值的范围(range)。考虑前面的苹果数据，合适的输入域是100和500(数据的最小和最大值)或0和500
 

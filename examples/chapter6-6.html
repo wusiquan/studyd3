@@ -1,0 +1,47 @@
+<html>
+
+<head>
+  <meta charset="utf8">
+  <title>第6章--Drawing with Data</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+
+<body>
+  <script src="./d3.js"></script>
+  <script>
+  var w = 500
+  var h = 100
+  var dataset = [
+    [5, 20],
+    [480, 90],
+    [250, 50],
+    [100, 33],
+    [330, 95],
+    [410, 12],
+    [475, 44],
+    [25, 67],
+    [85, 21],
+    [220, 88]
+  ]
+  var svg = d3.select('body')
+            .append('svg')
+            .attr('width', w)
+            .attr('height', h)
+
+svg.selectAll('circle')   // <-- No longer 'rect'
+   .data(dataset)
+   .enter()
+   .append('circle')
+   .attr('cx', d => d[0])
+   .attr('cy', d => d[1])
+   .attr('r', 5)
+  </script>
+</body>
+
+</html>
