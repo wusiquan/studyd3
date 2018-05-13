@@ -105,7 +105,7 @@ circles.attr('cx', function(d, i) {
         })
 ```
 
-最后，每个圆的半径r简单的设为d，对应数据的值（注意，永远不要用半径来表示数据的值，<a href="#reason">后面小节说明</a>)
+最后，每个圆的半径r简单的设为d，对应数据的值（注意，永远不要用半径来表示数据的值，[见后面小节英文部分说明](#reason))
 
 
 
@@ -278,7 +278,57 @@ svg.selectAll('circle')		// <-- No longer 'rect'
 
 为什么散点图中的圆，用面积(area)来表示值(value)？
 
+<div id="reason">As a general rule, when visualizing quantitative values with circles, make sure to encode the values as area, not as a circle’s radius. Perceptually, humans interpret the overall amount of “ink” or pixels (the area) to reflect the data value. A common mistake is to map the value to the radius, which would vastly overrepresent the data and distort the relative relationship between values. (For that matter, humans are not so great at accurately comparing areas, either, but that’s another discussion.) Mapping to the radius is easier to do, as it requires less math, but the result will visually distort your data.</div>
+
+开始修改，首先圆的的面积(值)设为 h - d[1], 这样高的代表值大一些(Admittedly, it is not a meaningful to include h here; please just bear with me for the sake of the example. I promise to illustrate a cleaner and more meaningful approach using scales in Chapter 7.)
+
+```javascript
+.attr('r', function(d) {
+  return Math.sqrt( (h - d[1]) / Math.PI )
+})
+
+// => 由于同比例，我们去掉Math.PI
+// 因为这里的重要的是相对值而不是绝对值
+// 实际的圆大小会由于你使用设备(手机, 平板...)还是显示器变化很大
+// 除以Math.PI不过让圆均小了一些
+.attr('r', function(d) {    
+  return Math.sqrt(h-d[1])
+})
+```
+
+[效果预览](https://wusiquan.github.io/studyd3/chapter6-7.html)
+
+这里圆面积的特殊使用，并不有用
+
+这里仅仅是展示怎样使用d，做一些转换然后返回给attr方法。。。
 
 
-<div id="reason" />As a general rule, when visualizing quantitative values with circles, make sure to encode the values as area, not as a circle’s radius. Perceptually, humans interpret the overall amount of “ink” or pixels (the area) to reflect the data value. A common mistake is to map the value to the radius, which would vastly overrepresent the data and distort the relative relationship between values. (For that matter, humans are not so great at accurately comparing areas, either, but that’s another discussion.) Mapping to the radius is easier to do, as it requires less math, but the result will visually distort your data.</div>
+
+#### 标签(Labels)
+
+直接开动~
+
+```javascript
+svg.selectAll('text')   // <-- Note 'text', not 'circle' or 'rect'
+   .data(dataset)
+   .enter()
+   .append('text')
+   .text(d => d[0] + ',' + d[1])
+   .attr('x', d => d[0])
+   .attr('y', d => d[1])
+   // add a bit of font styling
+   .attr('font-family', 'sans-serif')
+   .attr('font-size', '11px')
+   .attr('fill', 'red')
+```
+
+[效果预览](https://wusiquan.github.io/studyd3/chapter6-8.html)
+
+
+
+
+
+
+
+
 
