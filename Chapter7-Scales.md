@@ -151,9 +151,6 @@ var padding = 20
 
 // .range[h, 0]
 .range([h - padding, padding])
-
-
-.range
 ```
 
 [例子预览](https://wusiquan.github.io/studyd3/chapter7-3.html)
