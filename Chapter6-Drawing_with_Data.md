@@ -1,8 +1,10 @@
+# 使用数据绘图(Drawing with Data)
+
 我们用目前的数据来继续操作
 
 `var dataset = [5, 10, 15, 20, 25]`
 
-## Drawing divs
+## 绘制divs(Drawing divs)
 
 #### 设置特性(Setting Attributes)
 
@@ -16,7 +18,7 @@
 
 注意元素的class存储在HTML的attribute中。反过来，这个class被用来指定css样式规则。这可能导致一些困惑，因为设置一个class和直接对元素应用style有一些区别。我推荐使用对大多数使用class properties，只对不同寻常的直接应用style。
 
-同时提一下`classed`方法，用于从元素上快速应用和移除classes
+同时提一下d3的`classed`方法，用于从元素上快速应用和移除classes
 
 `.classed("bar", true)`
 

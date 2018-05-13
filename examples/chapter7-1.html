@@ -40,7 +40,7 @@
     .domain([0, d3.max(dataset, function(d) {
       return d[1];
     })])
-    .range([h, 0]);
+    .range([0, h]);
 
   //Create SVG element
   var svg = d3.select("body")

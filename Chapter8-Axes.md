@@ -175,5 +175,5 @@ xAxis.tickFormat(formatAsPercentage)
 
 ## 基于时间的坐标轴
 
-
+[效果图](https://wusiquan.github.io/studyd3/chapter8-6.html)
 
