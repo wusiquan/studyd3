@@ -138,9 +138,17 @@ svg.selectAll('rect')
 
 ## 过渡(Transitions)
 
+加上一行代码即可构造一个美妙，丝滑的过渡动画
+
+`.transition()`
+
+[例子效果](https://wusiquan.github.io/studyd3/chapter9-3.html)
+
+现在点击文字"click me"就可以看到过渡动画
 
 
 
+#### duration()或多久过渡完(duration(), or How Long Is This Going to Take?)
 
 
 
