@@ -1,14 +1,10 @@
 ## 让柱状图时髦(Modernizing the Bar Chart)
 
-
-
-图
-
-
+![柱状图9-1](https://github.com/wusiquan/studyd3/blob/master/images/chap9-1.png)
 
 下图看起来与上图相似，但是本质上做了很多改动
 
-
+![柱状图9-2](https://github.com/wusiquan/studyd3/blob/master/images/chap9-2.png)
 
 首先，调整了宽和高，让柱状图更高且宽
 
@@ -49,6 +45,12 @@ var xScale = d3.scaleBand()
                .paddingInner(0.05)
 ```
 
+d3的band scales依据输入域，自动平均划分输出范围为相等的"段"，
+
+例如，输入域有20个值，`.range([0, w])`，意味着，每一段为 (600 - 0) / 20 = 30"宽"
+
+
+
 `paddingInner()`可以指定每个柱子的间距
 
 `paddingInenr(0.05)`即柱子5%的宽度，这里为 (600 - 0) / 20 = 30, 30 * 0.05 = 1.5，即1.5像素
@@ -59,9 +61,7 @@ var xScale = d3.scaleBand()
 
 #### 引用Band比例(Referencing the Band Scale)
 
-例子
-
-
+[例子预览](https://wusiquan.github.io/studyd3/chapter9-1.html)
 
 注意看代码
 
@@ -87,10 +87,6 @@ svg.selectAll('rect')
 现在让band scale为我们计算即可
 
 `.attr('width', xScale.bandwidth())`
-
-
-
-图
 
 
 
@@ -132,9 +128,11 @@ svg.selectAll('rect')
    })
 ```
 
-显然，还需要更新颜色，文字标签。。
+显然，还需要再次设置颜色，文字标签。。
 
-[效果]()
+[效果](https://wusiquan.github.io/studyd3/chapter9-2.html)
+
+点击文字"click me"看看变化
 
 
 

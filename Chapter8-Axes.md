@@ -1,4 +1,4 @@
-有了第7章已有[散点图](https://wusiquan.github.io/studyd3/chapter7-2.html)的基础上，我们来添加横坐标和纵坐标
+有了第7章已有[散点图](https://wusiquan.github.io/studyd3/chapter7-7.html)的基础上，我们来添加横坐标和纵坐标
 
 ## 坐标介绍
 

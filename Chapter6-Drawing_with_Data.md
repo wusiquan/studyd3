@@ -18,11 +18,11 @@
 
 注意元素的class存储在HTML的attribute中。反过来，这个class被用来指定css样式规则。这可能导致一些困惑，因为设置一个class和直接对元素应用style有一些区别。我推荐使用对大多数使用class properties，只对不同寻常的直接应用style。
 
-同时提一下d3的`classed`方法，用于从元素上快速应用和移除classes
+同时提一下d3的`classed`方法，用于从元素上快速应用和移除类
 
 `.classed("bar", true)`
 
-true 应用，false 就是移除啦
+true表示添加，false表示移除
 
  `.classed("bar", false)`
 
@@ -73,7 +73,7 @@ d3.select('body').selectAll('div')
 
 
 
-## Drawing SVGs
+## 绘制SVGs(Drawing SVGs)
 
 由于SVG元素存在于DOM中，正如HTML元素，我们可以使用`append()`和`attr()`同样地方式来创建SVG图形
 
@@ -107,7 +107,7 @@ circles.attr('cx', function(d, i) {
         })
 ```
 
-最后，每个圆的半径r简单的设为d，对应数据的值（注意，永远不要用半径来表示数据的值，[见后面小节英文部分说明](#reason))
+最后，每个圆的半径r简单的设为d，对应数据的值（注意，永远不要用半径来表示数据的值，[见后面小节说明](#reason))
 
 
 

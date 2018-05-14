@@ -2,7 +2,7 @@
 
 <head>
   <meta charset="utf8">
-  <title> 第9章--Updates, Transitions And Motion</title>
+  <title>第9章--Updates, Transitions And Motion</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <style>
   * {
@@ -68,8 +68,6 @@
     .on('click', () => {
       svg.selectAll('rect')
         .data(dataset)
-        .transition()
-        .duration(1000)
         .attr('y', (d) => {
           return h - yScale(d)
         })
@@ -82,8 +80,6 @@
 
       svg.selectAll('text')
         .data(dataset)
-        .transition()
-        .duration(1500)
         .text((d) => {
           return d
         })

@@ -8,27 +8,25 @@ var dataset = [100, 200, 300, 400, 500]
 
 显然，用一像素来表示卖出的一个苹果，不合适。。。
 
-所以要搞 比例
+所以要搞比例
 
-## Domains and Ranges
+## 输入域或输出域(Domains and Ranges)
 
-比例的*输入域*(input domain)是可能输入数据的值的范围(range)。考虑前面的苹果数据，合适的输入域是100和500(数据的最小和最大值)或0和500
+比例的*输入域*(input domain)是可能输入数据的值的范围。考虑前面的苹果数据，合适的输入域是100和500(数据的最小和最大值)或0和500
 
 比例的*输出范围*(output range)是可能输出值的范围，通常以像素单位显示值。作为信息设计者，如果你决定最短的苹果柱状条10像素高，最高的苹果柱状条350像素高，你可以设置10和350的输出范围
 
-例如，创建一个比例，*输入域* 为[100,500], 输出域为[10, 350]，那么传入100到比例中，应返回10。传入500，返回350。传入300，返回180
+例如，创建一个比例，*输入域* 为[100, 500], 输出域为[10, 350]，那么传入100到比例中，应返回10。传入500，返回350。传入300，返回180
 
 ![输入输出](https://github.com/wusiquan/studyd3/blob/master/images/chap7-1.png)
 
 
-
 ## 标准化(Normalization)
 
-标准化是一个映射一个数值到一个新值(在0-1之间)的过程，例如，一年有365天，那么310天，对应0.85, 或一年的85%
+标准化是映射一个数值到一个新值(在0-1之间)的过程，例如，一年有365天，那么310天，对应0.85, 或一年的85%
 
 
-
-## 创建比例尺(Creating a Scale)
+## 创建比例(Creating a Scale)
 
 ```javascript
 var scale = d3.scaleLinear()
@@ -39,8 +37,6 @@ scale(100)  // Returns 10
 scale(300)  // Returns 180
 scale(500)  // Returns 350
 ```
-
-
 
 ## 散点图中比例(Scaling the Scatterplot)
 
@@ -64,8 +60,6 @@ var dataset = [
 ```
 
 看一下，x的值5至480，所以我们的输入域可以指定为0,500，对吗？但是最好别写死，因为数据可能改变，我们要让我们的代码灵活并可扩展
-
-
 
 #### d3.min()和d.max
 
@@ -92,8 +86,6 @@ d3.max(dataset)		// Returns [85, 21] What?
 d3.max(dataset, function(d) return d[0])
 ```
 
-
-
 #### 创建动态比例(Setting Up Dynamic Scales)
 
 ```javascript
@@ -108,8 +100,6 @@ var yScale = d3.scaleLinear()
 ```
 
 这里简单将domain的较低值，简单地设为了0，你也可以使用d3.min
-
-
 
 #### 插入比例值(Incorporating Scaled Values)
 
@@ -154,8 +144,6 @@ var padding = 20
 ```
 
 [例子预览](https://wusiquan.github.io/studyd3/chapter7-3.html)
-
-
 
 > 这里直接使用padding也并不优雅，推荐阅读Mike Bostock的margin convention https://bl.ocks.org/mbostock/3019563
 
