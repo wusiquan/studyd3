@@ -148,7 +148,107 @@ svg.selectAll('rect')
 
 
 
-#### duration()或多久过渡完(duration(), or How Long Is This Going to Take?)
+#### 过渡持续多久(duration(), or How Long Is This Going to Take?)
+
+默认过渡持续250毫秒，你可以控制过渡的时间
+
+`.duration(1000)` ，此方法需要在`transition()`后调用
+
+同时，将文字的位置也加上过渡动画
+
+[例子效果](https://wusiquan.github.io/studyd3/chapter9-4.html)
+
+> 过渡都需要有个初始值
+
+#### ease()-y Does It
+
+D3, 方法`ease()`可以指定缓动，默认为d3.easeCubicInOut
+
+内置缓动函数，查看https://github.com/d3/d3-ease
+
+或https://bl.ocks.org/mbostock/248bac3b8e354a9103c4
 
 
+
+#### Please Do Not delay()
+
+可以使用`delay()`延迟过渡，比如延迟1秒`delay(1000)`
+
+当然也可以动态计算delay值，比如交错延迟
+
+```javascript
+// ...
+.transition()
+.delay((d, i) => i / dataset.length * 1000)
+.duration(500)
+// ...
+```
+
+[例子效果](https://wusiquan.github.io/studyd3/chapter9-5.html)
+
+
+
+#### 更新比例(Updating Scales)
+
+现在我将使用随机生成的dataset，数量与之前的dataset扔相同
+
+```javascript
+//New values for dataset
+var numValues = dataset.length;  //Count original length of dataset
+var maxValue = 100;  //Highest possible new value
+dataset = [];  //Initialize empty array
+for (var i = 0; i < numValues; i++) {           //Loop numValues times
+  var newNumber = Math.floor(Math.random() * maxValue); //New random integer (0-100)
+  dataset.push(newNumber);  //Add new number to array
+}
+```
+
+[例子效果](https://wusiquan.github.io/studyd3/chapter9-6.html)
+
+会发现我们很多柱子会超出，原因是，比例没有更新
+
+[例子效果](https://wusiquan.github.io/studyd3/chapter9-7.html)
+
+![更新比例的柱状图1](https://github.com/wusiquan/studyd3/blob/master/images/chap9-3.png)
+
+![更新比例的柱状图1](https://github.com/wusiquan/studyd3/blob/master/images/chap9-4.png)
+
+从图中可以看97的值和83的值，高度也几乎一样。数据更新了，比例输入域更新了，但是输出域没有改变
+
+
+
+#### 更新坐标轴(Updating Axes)
+
+我们写过散点图，现在稍微修改下
+
+* 点击文字即生成新的数据
+* 过渡
+* 比例相应更新
+* 圆的大小不变
+
+[例子效果](https://wusiquan.github.io/studyd3/chapter9-8.html)
+
+但是，可以看到，坐标轴却没有更新，其实想让它更新也很简单
+
+```javascript
+// 首先给x,y坐标轴添加类名，这样后续好选择
+svg.append('g')
+   .attr('class', 'x axis')
+   .attr('transform', 'translate(0,' + ( h - padding ) + ')')
+   .call(xAxis)
+
+// 接着，点击函数中
+svg.select('.x.axis')
+   .duration(1000)
+   .call(xAxis)
+```
+
+每个坐标轴，我们做了以下更改
+
+* 选中坐标轴
+* 初始化过渡
+* 设置过渡持续时间
+* 调用已更新的axis比例
+
+[例子效果](https://wusiquan.github.io/studyd3/chapter9-7.html)
 
