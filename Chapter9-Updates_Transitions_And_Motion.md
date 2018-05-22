@@ -372,7 +372,17 @@ remove()是一种特殊的过渡方法，它会等到过渡结束，再永久从
 
 但会发现一些问题:
 
+* 文字标签没有移除
 
+* 我们使用了shift()，当发现好像不是第一个bar被移除，而是最后一个
+
+  尽管数据的值正确地更新, 柱被赋予新的值而不是"保持"原来的初始值
+
+  即表示"5"的bar变成了"10"的bar，而我们希望仅仅第一个移除，其他
+
+  保持原来的值
+
+Why?  保持object constancy的关键是keys http://bost.ocks.org/mike/constancy
 
 #### Data Joins with Keys
 
