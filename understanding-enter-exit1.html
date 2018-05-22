@@ -5,19 +5,34 @@
   <title>第12章--Selections</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  .node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 3px;
+  }
+
+  .node text {
+    font: 12px sans-serif;
+  }
+
+  .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 2px;
+  }
   </style>
 </head>
 
 <body>
   <h2>Selections以及绑定Data</h2>
-  
   <div>
     hello1
-  </div>  
+  </div>
   <div>
     hello21
   </div>
@@ -30,12 +45,15 @@
   <div>
     hello5
   </div>
-
-  参考文章：
-  https://bost.ocks.org/mike/join/
-  http://animateddata.co.uk/lab/d3enterexit/
-  https://bost.ocks.org/mike/selection/
-  
+  <p>
+    参考文章： https://bost.ocks.org/mike/join/ http://animateddata.co.uk/lab/d3enterexit/ https://bost.ocks.org/mike/selection/
+  </p>
+  <svg width="400" height="220">
+    <g transform="translate(5, 5)">
+      <g class="links"></g>
+      <g class="nodes"></g>
+    </g>
+  </svg>
   <script src="./d3.js"></script>
   <script src="./understanding_enter_exit1.js"></script>
 </body>
