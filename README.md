@@ -5,7 +5,16 @@
 书籍中有些内容，概念过于简单，这里做了很多精简  
 因为此repo宗旨是：把书读薄  
 部分内容也有翻译作者的一些理解，甚至有补充，比如关于data join及enter, exit的概念
+
+
+
+本repo的d3版本是v5.4.0(会经常更新至最新版本)
+
 例子预览均在Chrome 66.0下测试成功
+
+如发现问题，欢迎提issue或pr
+
+
 
 半翻译目录
   * [第六章：使用数据绘图](https://github.com/wusiquan/studyd3/blob/master/Chapter6-Drawing_with_Data.md)
@@ -15,7 +24,9 @@
 
 ## Cover
 本书作者: Scott Murray
-d3作者不少示例，也引用过本书作者的文章
 
-个人觉得这本书作为d3入门还是可以的  
+d3作者[mbostock](https://github.com/d3/d3/commits?author=mbostock) 不少示例，也引用过本书作者的文章
+
+个人觉得这本书作为d3入门还是可以的
+
 ![cover](https://github.com/wusiquan/studyd3/blob/master/images/d3-cover.jpg)
