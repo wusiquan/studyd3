@@ -1,0 +1,204 @@
+<html>
+
+<head>
+  <meta charset="utf8">
+  <title>第9章--Updates, Transitions And Motion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <p>click me</p>
+  <script src="./d3.js"></script>
+  <script>
+    var w = 600
+    var h = 250
+    var dataset = [{
+        mykey: 0,
+        value: 5
+      }, //dataset is now an array of objects.
+      {
+        mykey: 1,
+        value: 10
+      }, //Each object has a 'key' and a 'value'.
+      {
+        mykey: 2,
+        value: 13
+      },
+      {
+        mykey: 3,
+        value: 19
+      },
+      {
+        mykey: 4,
+        value: 21
+      },
+      {
+        mykey: 5,
+        value: 25
+      },
+      {
+        mykey: 6,
+        value: 22
+      },
+      {
+        mykey: 7,
+        value: 18
+      },
+      {
+        mykey: 8,
+        value: 15
+      },
+      {
+        mykey: 9,
+        value: 13
+      },
+      {
+        mykey: 10,
+        value: 11
+      },
+      {
+        mykey: 11,
+        value: 12
+      },
+      {
+        mykey: 12,
+        value: 15
+      },
+      {
+        mykey: 13,
+        value: 20
+      },
+      {
+        mykey: 14,
+        value: 18
+      },
+      {
+        mykey: 15,
+        value: 17
+      },
+      {
+        mykey: 16,
+        value: 16
+      },
+      {
+        mykey: 17,
+        value: 18
+      },
+      {
+        mykey: 18,
+        value: 23
+      },
+      {
+        mykey: 19,
+        value: 25
+      }
+    ]
+
+    var xScale = d3.scaleBand().domain(d3.range(dataset.length)).rangeRound([0, w]).paddingInner(0.05)
+    var yScale = d3.scaleLinear().domain([0, d3.max(dataset, d => d.value)]).range([0, h])
+
+    var svg = d3.select('body').append('svg').attr('width', w).attr('height', h)
+
+    function key(d) {
+      return d.mykey
+    }
+
+    svg.selectAll('rect')
+      .data(dataset, key)
+      .enter()
+      .append('rect')
+      .attr('x', (d, i) => {
+        return xScale(i)
+      })
+      .attr("y", function (d) {
+        return h - yScale(d.value)
+      })
+      .attr('width', xScale.bandwidth())
+      .attr('height', (d) => {
+        return yScale(d.value)
+      })
+      .attr('fill', (d) => {
+        return 'rgb(0, 0, ' + Math.round(d.value * 10) + ')'
+      })
+
+    // create labels
+    svg.selectAll('text')
+      .data(dataset, key)
+      .enter()
+      .append('text')
+      .text((d) => {
+        return d.value
+      })
+      .attr("text-anchor", "middle")
+      .attr('x', (d, i) => {
+        return xScale(i) + xScale.bandwidth() / 2
+      })
+      .attr('y', (d) => {
+        return h - yScale(d.value) + 14
+      })
+      .attr('font-family', 'sans-serif')
+      .attr('font-size', '11px')
+      .attr('fill', 'white')
+
+    d3.select('p')
+      .on('click', () => {
+        dataset.shift()
+
+        xScale.domain(d3.range(dataset.length))
+        yScale.domain([0, d3.max(dataset, function (d) {
+          return d.value
+        })])
+
+        let bars = svg.selectAll('rect').data(dataset, key)
+
+        bars
+          .transition()
+          .duration(500)
+          .attr('x', function (d, i) {
+            return xScale(i);
+          })
+          .attr('y', function (d) {
+            return h - yScale(d.value);
+          })
+          .attr('width', xScale.bandwidth())
+          .attr('height', function (d) {
+            return yScale(d.value);
+          })
+
+        bars.exit()
+          .transition()
+          .duration(500)
+          .attr("x", -xScale.bandwidth())
+          .remove()
+        
+        let texts = svg.selectAll('text').data(dataset, key)
+        
+        texts
+          .transition()
+          .duration(500)
+          .text(function (d) {
+            return d.value;
+          })
+          .attr("x", function (d, i) {
+            return xScale(i) + xScale.bandwidth() / 2;
+          })
+          .attr("y", function (d) {
+            return h - yScale(d.value) + 14;
+          })
+        
+        texts.exit()
+          .transition()
+          .duration(500)
+          .attr("x", -xScale.bandwidth())
+          .remove()
+      })
+  </script>
+</body>
+
+</html>

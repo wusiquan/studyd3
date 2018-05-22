@@ -252,3 +252,204 @@ svg.select('.x.axis')
 
 [例子效果](https://wusiquan.github.io/studyd3/chapter9-7.html)
 
+
+
+## 数据更新的其他形式
+
+目前，更新数据，我们采用了"全部"的方式：改变dataset数组项的值，接着重新绑定修改过的dataset，重写已绑定到DOM元素中的数据。
+
+此方法在所有数据的值改变，而数据的长度不变的情况非常有用
+
+而实际情况数据比较混乱，需要更灵活，例如当你仅需要更新一个或两个值...
+
+####  添加值(及元素)
+
+回到柱状图
+
+```javascript
+var maxValue = 25
+var newNumber = Math.floor(Math.random() * maxValue)
+dataset.push(newNumber)
+```
+
+为新的柱留出空间需要重新校准 x-axis 比例
+
+```javascript
+xScale.domain(d3.range(dataset.length))
+```
+
+
+
+#### Select
+
+data()方法也返回选区，特别地，data()返回数据刚绑定的全部元素的引用
+
+```javascript
+var bars = svg.selectAll('rect').data(dataset)
+```
+
+现在，update选取已存储在bars变量
+
+
+
+#### Enter
+
+现在添加数据，dataset的长度会增加，不能简单的重新绑定数据
+
+Enter选区，包含那些还未存在的元素
+
+之前见了很多次了，selectAll()->data()->enter()->append()顺序
+
+
+
+```javascript
+bars.enter()
+    .append('rect')
+    .attr('x', w)
+    .attr('y', d => {
+      return h - yScale(d)
+    })
+    .attr('width', xScale.bandwidth())
+    .attr('height', d => yScale(d))
+    .attr('fill', d => {
+      return 'rgb(0, 0, ' + Math.round(d * 10) + ')'
+    })
+```
+
+
+
+#### Update
+
+```javascript
+.merge(bars)
+.transition()
+.duration(500)
+.attr('x', (d, i) => {
+  return xScale(i)
+})
+.attr("y", function (d) {
+  return h - yScale(d);
+})
+.attr('width', xScale.bandwidth())
+.attr('height', (d) => {
+  return yScale(d)
+})
+```
+
+[例子效果](https://wusiquan.github.io/studyd3/chapter9-10.html)
+
+
+
+#### 移除值(及元素)
+
+移除元素很简单
+
+```javascript
+dataset.shift()
+```
+
+
+
+#### Exit
+
+```javascript
+bars.exit()
+    .transtion()
+    .duration(500)
+    .attr('x', w)
+    .remove()
+```
+
+remove()是一种特殊的过渡方法，它会等到过渡结束，再永久从DOM中删除元素
+
+
+
+#### Making a smooth exit
+
+
+
+[例子效果](https://wusiquan.github.io/studyd3/chapter9-11.html)
+
+但会发现一些问题:
+
+
+
+#### Data Joins with Keys
+
+data join发生在，每当你将数据绑定到DOM元素时，即每次你调用data()
+
+默认的join是index顺序，意味着第一个数据值绑定到选区的第一个DOM元素，
+
+第二个值绑定到第二个DOM元素，以此类推
+
+
+
+如果数据值和DOM不一一对应怎么办？你需要告诉D3怎么join或值和元素的配对。幸运的是，你可以通过指定一个 key function 来定义那些规则
+
+这就解释了之前bars的问题。在我们移除dataset数组第一个值之后，我们重新将新的dataset绑定到已存在元素上。这些值是以索引顺序与元素join, 所以，第一个rect元素，原先值为5，现在被赋为10。。。
+
+#### Preparing the data
+
+```javascript
+var dataset = [
+  { mykey: 0, value: 5 },
+  { mykey: 1, value: 10 },
+  { mykey: 2, value: 13 },
+  { mykey: 3, value: 19 },
+  { mykey: 4, value: 21 },
+  { mykey: 5, value: 25 },
+  { mykey: 6, value: 22 },
+  { mykey: 7, value: 18 },
+  { mykey: 8, value: 15 },
+  { mykey: 9, value: 13 },
+  { mykey: 10, value: 11 },
+  { mykey: 11, value: 12 },
+  { mykey: 12, value: 15 },
+  { mykey: 13, value: 20 },
+  { mykey: 14, value: 18 },
+  { mykey: 15, value: 17 },
+  { mykey: 16, value: 16 },
+  { mykey: 17, value: 18 },
+  { mykey: 18, value: 23 },
+  { mykey: 19, value: 25 }
+]
+```
+
+#### Updating all references
+
+所以要将之前引用d的地方，改为d.value
+
+```javascript
+yScale.domain([0, d3.max(dataset, d => d.value)])
+```
+
+
+
+#### Key functions
+
+```javascript
+var key = function(d) {
+  return d.key
+}
+```
+
+
+
+#### Exit transition
+
+```javascript
+bars.exit()
+    .transition()
+    .duration(500)
+    .attr('x', -xScale.bandwidth())
+    .remove()
+```
+
+[例子效果](https://wusiquan.github.io/studyd3/chapter9-12.html)
+
+
+
+
+
+
+
