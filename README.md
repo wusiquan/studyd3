@@ -17,5 +17,5 @@
 本书作者: Scott Murray
 d3作者不少示例，也引用过本书作者的文章
 
-个人觉得这本书作为d3入门还是可以的
+个人觉得这本书作为d3入门还是可以的  
 ![cover](https://github.com/wusiquan/studyd3/blob/master/images/d3-cover.jpg)
