@@ -8,27 +8,27 @@
 
 
 
-本repo的d3版本是v5.4.0(会经常更新至最新版本)
-
-例子预览均在Chrome 66.0下测试成功
-
-如发现问题，欢迎提issue或pr
-
-
-
 半翻译目录
   * [第六章：使用数据绘图](https://github.com/wusiquan/studyd3/blob/master/Chapter6-Drawing_with_Data.md)
   * [第七章：比例](https://github.com/wusiquan/studyd3/blob/master/Chapter7-Scales.md)
   * [第八章：坐标轴](https://github.com/wusiquan/studyd3/blob/master/Chapter8-Axes.md)
-  * [第九章：变更、过渡及运动](https://github.com/wusiquan/studyd3/blob/master/Chapter9-Updates_Transitions_And_Motion.md)
+  * [第九章：数据变更及过渡](https://github.com/wusiquan/studyd3/blob/master/Chapter9-Updates_Transitions_And_Motion.md)
 
 
 
 ## 使用
 
-方式一、阅读markdown。。看示例。。然后中可以看到示例代码。。。理解
+方式一、阅读markdown。。看示例。。然后示例中可以看到F12看代码。。。理解
 
 方式二、clone本repo，`gulp dev`通过`localhost:3000`直接看示例，对某个示例感兴趣，再回到对应章节的markdown文件中阅读
+
+
+
+本repo的d3版本是v5.4.0(会时常更新至最新版本)
+
+例子预览均在Chrome 66.0下测试成功
+
+如发现任何问题，欢迎提issue或pr
 
 
 
