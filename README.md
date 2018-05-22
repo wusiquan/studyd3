@@ -4,7 +4,7 @@
 
 书籍中有些内容，概念过于简单，这里做了很多精简  
 因为此repo宗旨是：把书读薄  
-部分内容也有翻译作者的一些理解，甚至有补充，比如关于data join及enter, exit的概念
+部分内容也有个人的一些理解，甚至补充，比如关于data join及enter, exit的概念
 
 
 
@@ -21,6 +21,16 @@
   * [第七章：比例](https://github.com/wusiquan/studyd3/blob/master/Chapter7-Scales.md)
   * [第八章：坐标轴](https://github.com/wusiquan/studyd3/blob/master/Chapter8-Axes.md)
   * [第九章：变更、过渡及运动](https://github.com/wusiquan/studyd3/blob/master/Chapter9-Updates_Transitions_And_Motion.md)
+
+
+
+## 使用
+
+方式一、阅读markdown。。看示例。。然后中可以看到示例代码。。。理解
+
+方式二、clone本repo，`gulp dev`通过`localhost:3000`直接看示例，对某个示例感兴趣，再回到对应章节的markdown文件中阅读
+
+
 
 ## Cover
 本书作者: Scott Murray

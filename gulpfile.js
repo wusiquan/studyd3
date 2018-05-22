@@ -3,12 +3,13 @@ const path = require('path')
 const gulp = require('gulp')
 const browserSync = require('browser-sync').create()
 
+
 gulp.task('browsersync', () => {
   browserSync.init({
-    // 不打开浏览器
     open: false,
     server: {
-      baseDir: './examples'
+      baseDir: './examples',
+      directory: true
     }
   })
 })
