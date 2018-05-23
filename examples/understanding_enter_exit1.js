@@ -57,16 +57,19 @@
 
 var treeData = {
   "name": "Top Level",
-  "children": [{
-    "name": "Level 2: A",
-    "children": [{
-      "name": "Son of A"
-    }, {
-      "name": "Daughter of A"
-    }]
-  }, {
-    "name": "Level 2: B"
-  }]
+  "children": [
+    {
+      "name": "Level 2: A",
+      "children": [{
+        "name": "Son of A"
+      }, {
+        "name": "Daughter of A"
+      }]
+    }, 
+    {
+      "name": "Level 2: B"
+    }
+  ]
 };
 // https://bl.ocks.org/d3noob/b024fcce8b4b9264011a1c3e7c7d70dc
 // let treeLayout = d3.tree().size([400, 200])
@@ -130,9 +133,8 @@ var margin = {top: 20, right: 90, bottom: 30, left: 90},
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.right + margin.left)
     .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate("
-          + margin.left + "," + margin.top + ")");
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var i = 0,
     duration = 750,
@@ -145,10 +147,11 @@ var treemap = d3.tree().size([height, width]);
 root = d3.hierarchy(treeData, function(d) { return d.children; });
 root.x0 = height / 2;
 root.y0 = 0;
+// Assigns the x and y position for the nodes
+var treeData = treemap(root);
 
 // Collapse after the second level
 root.children.forEach(collapse);
-
 update(root);
 
 // Collapse the node and all it's children
@@ -161,16 +164,14 @@ function collapse(d) {
 }
 
 function update(source) {
-
-  // Assigns the x and y position for the nodes
-  var treeData = treemap(root);
-
   // Compute the new tree layout.
   var nodes = treeData.descendants(),
       links = treeData.descendants().slice(1);
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d){ d.y = d.depth * 180});
+  nodes.forEach(function(d) {
+    d.y = d.depth * 180 
+  });
 
   // ****************** Nodes section ***************************
 
@@ -198,10 +199,10 @@ function update(source) {
   nodeEnter.append('text')
       .attr("dy", ".35em")
       .attr("x", function(d) {
-          return d.children || d._children ? -13 : 13;
+        return d.children || d._children ? -13 : 13;
       })
       .attr("text-anchor", function(d) {
-          return d.children || d._children ? "end" : "start";
+        return d.children || d._children ? "end" : "start";
       })
       .text(function(d) { return d.data.name; });
 
@@ -279,7 +280,6 @@ function update(source) {
 
   // Creates a curved (diagonal) path from parent to the child nodes
   function diagonal(s, d) {
-
     path = `M ${s.y} ${s.x}
             C ${(s.y + d.y) / 2} ${s.x},
               ${(s.y + d.y) / 2} ${d.x},
@@ -291,12 +291,12 @@ function update(source) {
   // Toggle children on click.
   function click(d) {
     if (d.children) {
-        d._children = d.children;
-        d.children = null;
-      } else {
-        d.children = d._children;
-        d._children = null;
-      }
+      d._children = d.children;
+      d.children = null;
+    } else {
+      d.children = d._children;
+      d._children = null;
+    }
     update(d);
   }
 }

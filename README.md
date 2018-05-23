@@ -33,10 +33,12 @@
 
 
 ## Cover
-本书作者: Scott Murray
+本书作者: [Scott Murray](https://github.com/alignedleft)
 
-d3作者[mbostock](https://github.com/d3/d3/commits?author=mbostock) 不少示例，也引用过本书作者的文章
+d3作者 [Mike Bostock](https://github.com/mbostock) 一些示例，也引用过本书作者的文章
 
-个人觉得这本书作为d3入门还是可以的
+个人觉得这本书作为d3入门还是可以的，amazon上是五星评价，虽然我觉得略高。
+
+
 
 ![cover](https://github.com/wusiquan/studyd3/blob/master/images/d3-cover.jpg)
