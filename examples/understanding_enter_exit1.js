@@ -71,53 +71,7 @@ var treeData = {
     }
   ]
 };
-// https://bl.ocks.org/d3noob/b024fcce8b4b9264011a1c3e7c7d70dc
-// let treeLayout = d3.tree().size([400, 200])
-// let root = d3.hierarchy(treeData)
-// treeLayout(root)
 
-// var svg = d3.select("body")
-//   .append("svg")
-//   .attr('viewBox', '0 0 400 400')
-//   .attr('version', '1.1')
-//   .attr("width", 400)
-//   .attr("height", 400)
-
-// var g1 = svg.append('g').attr('class', 'nodes')
-// var g2 = svg.append('g').attr('class', 'links')
-
-// d3.select('svg g.nodes')
-//   .selectAll('circle.node')
-//   .data(root.descendants())
-//   .enter()
-//   .append('circle')
-//   .classed('node', true)
-//   .attr('cx', function (d) {
-//     return d.x;
-//   })
-//   .attr('cy', function (d) {
-//     return d.y;
-//   })
-//   .attr('r', 4);
-
-// d3.select('svg g.links')
-//   .selectAll('line.link')
-//   .data(root.links())
-//   .enter()
-//   .append('line')
-//   .classed('link', true)
-//   .attr('x1', function (d) {
-//     return d.source.x;
-//   })
-//   .attr('y1', function (d) {
-//     return d.source.y;
-//   })
-//   .attr('x2', function (d) {
-//     return d.target.x;
-//   })
-//   .attr('y2', function (d) {
-//     return d.target.y;
-//   });
 
 
 // https://godbasin.github.io/2018/01/01/d3-tree-notes-2-init-a-d3-tree/

@@ -1,0 +1,149 @@
+<html>
+
+<head>
+  <meta charset="utf8">
+  <title>d3的API -- tree</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 3px;
+  }
+
+  /*.nodes text {
+    font: 12px sans-serif;
+  }
+
+  .node--internal text {
+    text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+  }*/
+
+  .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 2px;
+  }
+  </style>
+</head>
+
+<body>
+  <script src="./d3.js"></script>
+  <script>
+
+  
+var treeData =
+  {
+    "name": "Top Level",
+    "children": [
+      { 
+    "name": "Level 2: A",
+        "children": [
+          { "name": "Son of A" },
+          { "name": "Daughter of A" }
+        ]
+      },
+      { "name": "Level 2: B" }
+    ]
+  };
+
+// set the dimensions and margins of the diagram
+var margin = {top: 40, right: 90, bottom: 50, left: 90},
+    width = 660 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+  var treeData = {
+    "name": "Top Level",
+    "children": [{
+        "name": "Level 2: A",
+        "children": [{
+          "name": "Son of A"
+        }, {
+          "name": "Daughter of A"
+        }]
+      },
+      {
+        "name": "Level 2: B"
+      }
+    ]
+  };
+
+  // https://bl.ocks.org/d3noob/b024fcce8b4b9264011a1c3e7c7d70dc
+  let treeLayout = d3.tree().size([width, height])
+  let nodes = d3.hierarchy(treeData)
+  nodes = treeLayout(nodes)
+
+  var svg = d3.select("body")
+    .append("svg")
+    .attr('viewBox', `0 0 ${660} ${500}`)
+    .attr('version', '1.1')
+    .attr("width", 660)
+    .attr("height", 500)
+  var g = svg.append("g")
+      .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+  // var g1 = g.append('g').attr('class', 'nodes')
+  // var g2 = g.append('g').attr('class', 'links')
+  
+  // 一定要先画links，再画nodes，这样nodes才会覆盖掉圆中的
+  // 而且他喵的还貌似必须要在同一个g标签下面。。。(示例给的是一个g里套circle)
+  g
+    .selectAll('.link')
+    .data(nodes.descendants().slice(1))
+    .enter()
+    .append('path')
+    .classed('link', true)
+    .attr('d', (d) => {
+      return `M${d.x} ${d.y}L${d.parent.x} ${d.parent.y}`
+    })
+
+  let nodesSelection = g
+    .selectAll('.node')
+    .data(nodes.descendants())
+    .enter()
+    .append('g')
+    .attr('class', (d) => {
+      return 'node' + (d.children ? ' node--internal' : ' node--leaf')
+    })
+    .attr('transform', (d) => {
+      return "translate(" + d.x + "," + d.y + ")"
+    })
+    
+  nodesSelection
+    .append('circle')
+    .attr('r', 10)
+
+  nodesSelection
+    .append('text')
+    .attr('dy', '.35em')
+    .attr('y', d => d.children ? -20 : 20)
+    .style('text-anchor', 'middle')
+    .text(d => d.data.name)
+
+  // d3.select('svg g.links')
+  //   .selectAll('line.link')
+  //   .data(nodes.links())
+  //   .enter()
+  //   .append('line')
+  //   .classed('link', true)
+  //   .attr('x1', function(d) {
+  //     return d.source.x;
+  //   })
+  //   .attr('y1', function(d) {
+  //     return d.source.y;
+  //   })
+  //   .attr('x2', function(d) {
+  //     return d.target.x;
+  //   })
+  //   .attr('y2', function(d) {
+  //     return d.target.y;
+  //   })
+  </script>
+</body>
+
+</html>
