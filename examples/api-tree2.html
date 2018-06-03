@@ -10,21 +10,15 @@
     padding: 0;
   }
 
-  .node circle {
-    fill: #fff;
-    stroke: steelblue;
-    stroke-width: 3px;
-  }
+  svg {
+  font: 10px sans-serif;
+}
 
-  .node text {
-    font: 12px sans-serif;
-  }
-
-  .link {
-    fill: none;
-    stroke: #ccc;
-    stroke-width: 2px;
-  }
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
   </style>
 </head>
 
@@ -32,7 +26,7 @@
   <script src="./d3.js"></script>
   <script>
 // https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd
-var treeData = {
+var data = {
   "name": "Top Level",
   "children": [
     {
@@ -71,7 +65,7 @@ var i = 0,
 var treemap = d3.tree().size([height, width]);
 
 // Assigns parent, children, height, depth
-root = d3.hierarchy(treeData, function(d) { return d.children; });
+root = d3.hierarchy(data, function(d) { return d.children; });
 root.x0 = height / 2;
 root.y0 = 0;
 // Assigns the x and y position for the nodes
@@ -106,13 +100,15 @@ function update(source) {
   var node = svg.selectAll('g.node')
       .data(nodes, function(d) {return d.id || (d.id = ++i); });
 
-  // Enter any new modes at the parent's previous position.
-  var nodeEnter = node.enter().append('g')
+  // Enter any new nodes at the parent's previous position.
+  // 这里是没有duration的哦
+  var nodeEnter = node.enter()
+      .append('g')
       .attr('class', 'node')
       .attr("transform", function(d) {
         return "translate(" + source.y0 + "," + source.x0 + ")";
-    })
-    .on('click', click);
+      })
+      .on('click', click);
 
   // Add Circle for the nodes
   nodeEnter.append('circle')
@@ -207,7 +203,7 @@ function update(source) {
 
   // Creates a curved (diagonal) path from parent to the child nodes
   function diagonal(s, d) {
-    path = `M ${s.y} ${s.x}
+    let path = `M ${s.y} ${s.x}
             C ${(s.y + d.y) / 2} ${s.x},
               ${(s.y + d.y) / 2} ${d.x},
               ${d.y} ${d.x}`
