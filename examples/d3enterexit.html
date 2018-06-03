@@ -1,0 +1,255 @@
+<html>
+
+<head>
+  <meta charset="utf8">
+  <title>D3's enter() and exit(): Under the Hood</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: sans-serif, "Helvetica Neue", Monaco;
+    font-size: 14px;
+  }
+
+  header {
+    margin-bottom: 20px;
+  }
+
+  .wrapper {
+    width: 800px;
+    margin: 30px auto;
+  }
+
+  .sections {
+    margin-bottom: 20px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .sections .command {
+    margin-bottom: 30px;
+  }
+
+  .sections h2 {
+    margin-bottom: 10px;
+  }
+
+  .sections .description {
+    color: #999;
+    font-style: italic;
+    margin-bottom: 5px;
+  }
+
+  .sections .elements {
+    height: 50px;
+    margin-top: 20px;
+  }
+
+  .sections .elements:after {
+    clear: both;
+  }
+
+  .sections .elem {
+    width: 50px;
+    padding: 10px;
+    background-color: cadetblue;
+    float: left;
+    margin-right: 4px;
+    text-align: center;
+    height: 14px;
+    line-height: 14px;
+  }
+
+  .sections .data {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .sections button {
+    padding: 5px 18px;
+  }
+  </style>
+</head>
+
+<body>
+  <!-- http://animateddata.co.uk/lab/d3enterexit/ -->
+  <section class="wrapper">
+    <div class="header">
+      <h1>D3's enter() and exit(): Under the Hood</h1>
+    </div>
+    <section class="sections">
+      <div class="description">下面是一些div元素(灰蓝色)，在其之下是js数组表示的数据。你可以从数组中添加或者删除</div>
+      <div class="elements">
+        <div class="elem"></div>
+        <div class="elem"></div>
+        <div class="elem"></div>
+      </div>
+      <div class="data">myData = [ 5, 4, 2 ]</div>
+      <button class="pop">Remove number</button>
+      <button class="push">Add number</button>
+    </section>
+    <section class="sections">
+      <h2>Update</h2>
+      <div class="command">
+        <div class="description">点击'Go'。D3返回一个selections(一个数组包含3个div元素)，注意它是数组的数组</div>
+        <div class="code">
+          d3.selectAll('div')
+        </div>
+        <div class="output">
+        </div>
+        <button class="update-btn1">Go</button>
+      </div>
+      <div class="command">
+        <div class="description">现在点击'Go'，D3将myData绑定到div元素上(意味每个div元素加上__data__属性)。注意: 如果myData的长度比div元素多，d3的选取将包括未存在的divs</div>
+        <div class="code">
+          d3.selectAll('div').data(myData).text((d) => d)
+        </div>
+        <div class="output">
+        </div>
+        <button class="update-btn2">Go</button>
+      </div>
+    </section>
+    <section class="sections">
+      <h2>Enter</h2>
+      <div class="command">
+        <div class="description">现在点击'Add number'几次再点击'Go'。D3现在返回的是'enter selection'。其长度与myData一样， 并且包含没有绑定到div元素的数据的占位对象</div>
+        <div class="code">
+          d3.selectAll('div').data(myData).enter()
+        </div>
+        <div class="output">
+        </div>
+        <button class="enter-btn1">Go</button>
+      </div>
+      <div class="command">
+        <div class="description">为了新数据创建div元素，需要在enter选取上，调用append('div')</div>
+        <div class="code">
+          d3.selectAll('div').data(myData).enter().append('div').text((d) => d)
+        </div>
+        <div class="output">
+        </div>
+        <button class="enter-btn2">Go</button>
+      </div>
+    </section>
+    <section class="sections">
+      <h2>Exit</h2>
+      <div class="command">
+        <div class="description">现在从myData中删除一些数据，这样div元素就比myData多。点击'Go', D3返回'exit section'。这是一个过剩的和正在退出的元素的选取。注意，div仍然存在的在此选取将被表示为'undefined'</div>
+        <div class="code">
+          d3.selectAll('div').data(myData).exit()
+        </div>
+        <div class="output">
+        </div>
+        <button class="exit-btn1">Go</button>
+      </div>
+      <div class="command">
+        <div class="description">从DOM中真正地删除元素，需要在'exit selection'调用remove()方法</div>
+        <div class="code">
+          d3.selectAll('div').data(myData).exit().remove()
+        </div>
+        <div class="output">
+        </div>
+        <button class="exit-btn2">Go</button>
+      </div>
+    </section>
+  </section>
+  <script src="./d3.js"></script>
+  <script>
+  var myData = [5, 4, 2]
+  var popBtn = d3.select('button.pop')
+  var pushBtn = d3.select('button.push')
+  var dataPanel = d3.select('.data')
+
+  popBtn
+    .on('click', () => {
+      myData.pop()
+      updatePanel()
+    })
+
+  pushBtn
+    .on('click', () => {
+      myData.push(Math.ceil(Math.random() * 10))
+      updatePanel()
+    })
+
+
+  function updatePanel() {
+    dataPanel.text(`myData = [ ${myData.join(', ')} ]`)
+  }
+
+  function decorateOutput(a) {
+    a = a[0];
+    var ret = [];
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] === undefined)
+        ret.push('undefined');
+      else if (a[i] instanceof HTMLElement)
+        ret.push('<div>');
+      else if (a[i] === null)
+        ret.push('null')
+      else {
+        ret.push('占位EnterNode{ __data__ : ' + a[i].__data__ + '}');
+      }
+    }
+    return '[[ ' + ret.join(', ') + ' ]]';
+  }
+
+  d3.select('.update-btn1')
+    .on('click', function(d, i) {
+      let codeExec = new Function("return d3.select('.elements').selectAll('div')")
+      let ret = codeExec()
+      // console.log(ret)
+      ret = decorateOutput(ret._groups)
+      d3.select(this.parentNode).select('.output').text('> ' + ret)
+    })
+
+  d3.select('.update-btn2')
+    .on('click', function(d, i) {
+      let codeExec = new Function("return d3.select('.elements').selectAll('div').data(myData).text(function(d) {return d;})")
+      let ret = codeExec()
+      // console.log(ret)
+      ret = decorateOutput(ret._groups)
+      d3.select(this.parentNode).select('.output').text('> ' + ret)
+    })
+
+  d3.select('.enter-btn1')
+    .on('click', function(d, i) {
+      let codeExec = new Function("return d3.select('.elements').selectAll('div').data(myData).enter()")
+      let ret = codeExec()
+      // console.log(ret)
+      ret = decorateOutput(ret._groups)
+      d3.select(this.parentNode).select('.output').text('> ' + ret)
+    })
+
+  d3.select('.enter-btn2')
+    .on('click', function(d, i) {
+      let codeExec = new Function("return d3.select('.elements').selectAll('div').data(myData).enter().append('div').classed('elem', true).text((d) => d)")
+      let ret = codeExec()
+      // console.log(ret)
+      ret = decorateOutput(ret._groups)
+      d3.select(this.parentNode).select('.output').text('> ' + ret)
+    })
+
+  d3.select('.exit-btn1')
+    .on('click', function(d, i) {
+      let codeExec = new Function("return d3.select('.elements').selectAll('div').data(myData).exit()")
+      let ret = codeExec()
+      // console.log(ret)
+      ret = decorateOutput(ret._groups)
+      d3.select(this.parentNode).select('.output').text('> ' + ret)
+    })
+
+  d3.select('.exit-btn2')
+    .on('click', function(d, i) {
+      let codeExec = new Function("return d3.select('.elements').selectAll('div').data(myData).exit().remove()")
+      let ret = codeExec()
+      ret = decorateOutput(ret._groups)
+      d3.select(this.parentNode).select('.output').text('> ' + ret)
+    })
+  </script>
+</body>
+
+</html>
