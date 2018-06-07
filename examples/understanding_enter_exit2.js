@@ -162,6 +162,11 @@ function reset(svg) {
       let target = d.target
       let sourceObj = { x: source.depth * step + d.source.width, y: source.x }
       let targetObj = { x: target.depth * step, y: target.x }
+
+      if (source.x === target.x) {
+        return `M${sourceObj.x} ${sourceObj.y}L${targetObj.x} ${targetObj.y}`
+      }
+
       return diagonal(sourceObj, targetObj)
     })
   
@@ -882,13 +887,11 @@ function selectAllAnimation(startRoot, startHeight, endRoot, endHeight) {
 //     .style("stroke-opacity", 1)
 //     .style("fill-opacity", 1);
 // }
-//
-//
-//
+
 
 
 // --------------- 第一个 --------------------------
-tree({
+let data1 = {
   type: "selection",
   name: "selection",
   children: [
@@ -910,4 +913,5 @@ tree({
       ]
     }
   ]
-}, 24 * 5)
+}
+tree(data1, 24 * 5)
